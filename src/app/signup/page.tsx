@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react';
 import Link from 'next/link';
+import axios from 'axios';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -17,9 +18,14 @@ const SignUp = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const response = await axios.post('https://gitget170705.azurewebsites.net/api/auth/signup', formData);
+      console.log('Success:', response.data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
